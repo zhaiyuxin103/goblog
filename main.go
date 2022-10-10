@@ -7,7 +7,7 @@ import (
 
 func handlerFunc(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/" {
-		_, err := fmt.Fprint(w, "<h1>Hello，这里是 goblog</h1>")
+		_, err := fmt.Fprint(w, "<h1>Hello，这里是 goblog！</h1>")
 		if err != nil {
 			return
 		}
