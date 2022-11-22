@@ -1,18 +1,21 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
+	"github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"html/template"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 	"unicode/utf8"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
 var router = mux.NewRouter()
+var db *sql.DB
 
 // ArticlesFormData 创建博文表单数据
 type ArticlesFormData struct {
@@ -23,31 +26,23 @@ type ArticlesFormData struct {
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	_, err := fmt.Fprint(w, "<h1>Hello，欢迎来到 goblog！</h1>")
-	if err != nil {
-		return
-	}
+	checkError(err)
 }
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	_, err := fmt.Fprint(w, "此博客是用以记录编程笔记，如您有反馈或建议，请联系 "+"<a href=\"mailto:zhaiyuxin103@hotmail.com\">zhaiyuxin103@hotmail.com</a>")
-	if err != nil {
-		return
-	}
+	checkError(err)
 }
 
 func notFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 	_, err := fmt.Fprint(w, "<h1>请求页面未找到 :(</h1><p>如有疑惑，请联系我们。</p>")
-	if err != nil {
-		return
-	}
+	checkError(err)
 }
 
 func articlesIndexHandler(w http.ResponseWriter, r *http.Request) {
 	_, err := fmt.Fprint(w, "访问文章列表")
-	if err != nil {
-		return
-	}
+	checkError(err)
 }
 
 func articlesCreateHandler(w http.ResponseWriter, r *http.Request) {
@@ -59,14 +54,10 @@ func articlesCreateHandler(w http.ResponseWriter, r *http.Request) {
 		Errors: nil,
 	}
 	tmpl, err := template.ParseFiles("resources/views/articles/create.tmpl")
-	if err != nil {
-		panic(err)
-	}
+	checkError(err)
 
 	err = tmpl.Execute(w, data)
-	if err != nil {
-		return
-	}
+	checkError(err)
 }
 
 func articlesStoreHandler(w http.ResponseWriter, r *http.Request) {
@@ -107,14 +98,10 @@ func articlesStoreHandler(w http.ResponseWriter, r *http.Request) {
 			Errors: errors,
 		}
 		tmpl, err := template.ParseFiles("resources/views/articles/create.tmpl")
-		if err != nil {
-			panic(err)
-		}
+		checkError(err)
 
 		err = tmpl.Execute(w, data)
-		if err != nil {
-			panic(err)
-		}
+		checkError(err)
 	}
 }
 
@@ -122,9 +109,7 @@ func articlesShowHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	_, err := fmt.Fprint(w, "文章 ID："+id)
-	if err != nil {
-		return
-	}
+	checkError(err)
 }
 
 func forceHTMLMiddleware(next http.Handler) http.Handler {
@@ -148,7 +133,43 @@ func removeTrailingSlash(next http.Handler) http.Handler {
 	})
 }
 
+func initDB() {
+	var err error
+	config := mysql.Config{
+		User:                 "root",
+		Passwd:               "",
+		Addr:                 "127.0.0.1:3306",
+		Net:                  "tcp",
+		DBName:               "goblog",
+		AllowNativePasswords: true,
+	}
+
+	// 准备数据库连接池
+	db, err = sql.Open("mysql", config.FormatDSN())
+	fmt.Println(config.FormatDSN())
+	checkError(err)
+
+	// 设置最大连接数
+	db.SetMaxOpenConns(25)
+	// 设置最大空闲连接数
+	db.SetMaxIdleConns(25)
+	// 设置每个连接的过期时间
+	db.SetConnMaxLifetime(5 * time.Minute)
+
+	// 尝试连接，失败会报错
+	err = db.Ping()
+	checkError(err)
+}
+
+func checkError(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func main() {
+	initDB()
+
 	router.HandleFunc("/", homeHandler).Methods("GET").Name("home")
 	router.HandleFunc("/about", aboutHandler).Methods("GET").Name("about")
 
@@ -170,7 +191,5 @@ func main() {
 	fmt.Println("articleURL：", articleURL)
 
 	err := http.ListenAndServe(":3000", removeTrailingSlash(router))
-	if err != nil {
-		return
-	}
+	checkError(err)
 }
