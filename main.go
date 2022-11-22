@@ -8,6 +8,8 @@ import (
 	"net/url"
 	"strings"
 	"unicode/utf8"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var router = mux.NewRouter()
