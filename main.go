@@ -475,9 +475,16 @@ func initDB() {
 		AllowNativePasswords: true,
 	}
 
+	/**
+	 * DSN：全称 `Data Source Name`，表示数据库连接源，用于定义数据库的连接信息
+	 * 不同数据库的 DSN 格式不同，MySQL 的 DSN 格式如下：
+	 * [用户名[:密码]@][协议(数据库服务器地址)]]/数据库名称?参数列表
+	 * [username[:password]@][protocol[(address)]]/dbname[?param1=value1&...&paramN=valueN]
+	 */
+	fmt.Println("conn：", config.FormatDSN())
+
 	// 准备数据库连接池
 	db, err = sql.Open("mysql", config.FormatDSN())
-	fmt.Println(config.FormatDSN())
 	checkError(err)
 
 	// 设置最大连接数
