@@ -36,3 +36,14 @@ func Get(idstr string) (Article, error) {
 
 	return article, nil
 }
+
+// Update 更新文章
+func (article *Article) Update() (rowsAffected int64, err error) {
+	result := model.DB.Save(&article)
+	if err = result.Error; err != nil {
+		logger.LogError(err)
+		return 0, err
+	}
+
+	return result.RowsAffected, nil
+}
