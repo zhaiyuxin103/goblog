@@ -1,83 +1,83 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>所有文章 -- 我的技术博客</title>
-    <link href="/css/app.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>所有文章 -- 我的技术博客</title>
+  <link href="/css/app.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50/80">
 <div class="md:flex justify-between mx-auto max-w-7xl mt-4 md:mt-20 px-4">
-    <div class="w-full md:w-1/4 mr-4 mb-4 md:mb-0">
-        <div class="overflow-hidden rounded-lg bg-white shadow">
-            <div class="px-4 py-5 sm:p-6">
-                <h2 class="font-normal text-2xl mb-2">GoBlog</h2>
-                <p class="mb-0">摒弃世俗浮躁，追求技术精湛</p>
-            </div>
-        </div>
-        <div class="mt-4 overflow-hidden rounded-lg bg-white shadow">
-            <div class="px-4 py-5 sm:p-6">
-                <h2 class="font-normal text-2xl mb-2">类别</h2>
-                <ol>
-                    <li><a href="#"
-                           class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">未分类</a>
-                    </li>
-                    <li><a href="#"
-                           class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">模板</a></li>
-                    <li><a href="#"
-                           class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">数据库</a>
-                    </li>
-                </ol>
-            </div>
-        </div>
-        <div class="mt-4 overflow-hidden rounded-lg bg-white shadow">
-            <div class="px-4 py-5 sm:p-6">
-                <h2 class="font-normal text-2xl mb-2">作者</h2>
-                <ol>
-                    <li><a href="#"
-                           class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">翟宇鑫</a>
-                    </li>
-                    <li><a href="#" class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">Summer</a>
-                    </li>
-                    <li><a href="#" class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">Aufree</a>
-                    </li>
-                    <li><a href="#" class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">Monkey</a>
-                    </li>
-                </ol>
-            </div>
-        </div>
-        <div class="mt-4 overflow-hidden rounded-lg bg-white shadow">
-            <div class="px-4 py-5 sm:p-6">
-                <h2 class="font-normal text-2xl mb-2">链接</h2>
-                <ol>
-                    <li><a href="#"
-                           class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">关于我们</a>
-                    </li>
-                    <li><a href="#"
-                           class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">注册</a></li>
-                    <li><a href="#"
-                           class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">登录</a></li>
-                </ol>
-            </div>
-        </div>
+  <div class="w-full md:w-1/4 mr-4 mb-4 md:mb-0">
+    <div class="overflow-hidden rounded-lg bg-white shadow">
+      <div class="px-4 py-5 sm:p-6">
+        <h2 class="font-normal text-2xl mb-2">GoBlog</h2>
+        <p class="mb-0">摒弃世俗浮躁，追求技术精湛</p>
+      </div>
     </div>
-    <div class="w-full md:w-3/4">
-        {{ range $key, $article := . }}
-        <div class="h-min mb-4 overflow-hidden rounded-lg bg-white shadow">
-            <div class="px-4 py-5 sm:p-6">
-                <h2 class="font-normal text-2xl mb-2">{{ $article.Title }}</h2>
-                <p class="mb-0">发布于 <a href="#"
-                                          class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">2022-12-10</a>
-                    by <a href="#"
-                          class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">翟宇鑫</a></p>
-                <hr class="my-2">
-                <p>{{ $article.Body }}</p>
-            </div>
-        </div>
-        {{ end }}
+    <div class="mt-4 overflow-hidden rounded-lg bg-white shadow">
+      <div class="px-4 py-5 sm:p-6">
+        <h2 class="font-normal text-2xl mb-2">类别</h2>
+        <ol>
+          <li><a href="#"
+                 class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">未分类</a>
+          </li>
+          <li><a href="#"
+                 class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">模板</a></li>
+          <li><a href="#"
+                 class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">数据库</a>
+          </li>
+        </ol>
+      </div>
     </div>
+    <div class="mt-4 overflow-hidden rounded-lg bg-white shadow">
+      <div class="px-4 py-5 sm:p-6">
+        <h2 class="font-normal text-2xl mb-2">作者</h2>
+        <ol>
+          <li><a href="#"
+                 class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">翟宇鑫</a>
+          </li>
+          <li><a href="#" class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">Summer</a>
+          </li>
+          <li><a href="#" class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">Aufree</a>
+          </li>
+          <li><a href="#" class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">Monkey</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="mt-4 overflow-hidden rounded-lg bg-white shadow">
+      <div class="px-4 py-5 sm:p-6">
+        <h2 class="font-normal text-2xl mb-2">链接</h2>
+        <ol>
+          <li><a href="#"
+                 class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">关于我们</a>
+          </li>
+          <li><a href="#"
+                 class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">注册</a></li>
+          <li><a href="#"
+                 class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">登录</a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="w-full md:w-3/4">
+    {{ range $key, $article := . }}
+    <div class="h-min mb-4 overflow-hidden rounded-lg bg-white shadow">
+      <div class="px-4 py-5 sm:p-6">
+        <h2 class="font-normal text-2xl mb-2">{{ $article.Title }}</h2>
+        <p class="mb-0">发布于 <a href="#"
+                                  class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">2022-12-10</a>
+          by <a href="#"
+                class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">翟宇鑫</a></p>
+        <hr class="my-2">
+        <p>{{ $article.Body }}</p>
+      </div>
+    </div>
+    {{ end }}
+  </div>
 </div>
 </body>
 </html>
