@@ -53,11 +53,19 @@ func initDB() {
 }
 
 func createTables() {
-	createArticlesSQL := `CREATE TABLE IF NOT EXISTS articles(
-    id bigint(20) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    title varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    body longtext COLLATE utf8mb4_unicode_ci
-    );`
+	createArticlesSQL := `CREATE TABLE
+    IF NOT EXISTS articles (
+        id BIGINT UNSIGNED NOT NULL,
+        title VARCHAR(255) CHARACTER
+        SET
+            utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+            body LONGTEXT CHARACTER
+        SET
+            utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+            created_at DATETIME NULL DEFAULT NULL COMMENT '创建时间',
+            updated_at DATETIME NULL DEFAULT NULL COMMENT '最后编辑时间',
+            deleted_at DATETIME NULL DEFAULT NULL COMMENT '删除时间'
+    ) ENGINE = InnoDB;`
 
 	_, err := DB.Exec(createArticlesSQL)
 	logger.LogError(err)
