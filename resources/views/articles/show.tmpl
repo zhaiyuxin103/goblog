@@ -1,22 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{{ .Title }} -- 我的技术博客</title>
-  <link href="/css/app.css" rel="stylesheet">
-</head>
-<body>
-<p>ID：{{ .ID }}</p>
-<p>标题：{{ .Title }}</p>
-<p>内容：{{ .Body }}</p>
+{{define "title"}}
+{{ .Title }}
+{{end}}
 
-{{/* 构建删除按钮 */}}
-{{ $idString := Uint64ToString .ID }}
-<form action='{{ RouteName2URL "articles.delete" "id" $idString }}' method="post">
-  <button type="submit" onclick="return confirm('删除动作不可逆，请确定是否继续')">删除</button>
-</form>
-</body>
-</html>
+{{define "main"}}
+<div class="h-min mb-4 overflow-hidden rounded-lg bg-white shadow">
+  <div class="px-4 py-5 sm:p-6">
+    <h2 class="font-normal text-2xl mb-2">{{ .Title }}</h2>
+    <p class="mb-0">发布于 <a href="#"
+                              class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">2022-12-10</a>
+      by <a href="#"
+            class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">翟宇鑫</a></p>
+    <hr class="my-2">
+    <p>{{ .Body }}</p>
+    {{/* 构建删除按钮 */}}
+    {{ $idString := Uint64ToString .ID }}
+    <form action='{{ RouteName2URL "articles.delete" "id" $idString }}' method="post">
+      <button type="submit" onclick="return confirm('删除动作不可逆，请确定是否继续')"
+              class="inline-flex items-center justify-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 active:bg-red-600 disabled:opacity-25 transition whitespace-nowrap mt-2">
+        删除
+      </button>
+    </form>
+  </div>
+</div>
+{{end}}
