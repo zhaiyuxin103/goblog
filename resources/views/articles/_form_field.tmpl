@@ -1,0 +1,32 @@
+{{define "form-fields"}}
+<div class="mt-4">
+  <label for="title" class="block font-medium text-sm text-gray-700">标题</label>
+  <input
+    type="text"
+    class="h-10 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full {{if .Errors.title }} border-red-300 {{end}}"
+    name="title"
+    value="{{ .Title }}"
+    required
+  >
+  {{ with .Errors.title }}
+  <p class="mt-2 text-sm text-red-600">
+    {{ . }}
+  </p>
+  {{ end }}
+</div>
+
+<div class="mt-4">
+  <label for="body" class="block font-medium text-sm text-gray-700">内容</label>
+  <textarea
+    id="body"
+    name="body"
+    cols="30" rows="10"
+    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full {{if .Errors.body }} border-red-300 {{end}}"
+  >{{ .Body }}</textarea>
+  {{ with .Errors.body }}
+  <p class="mt-2 text-sm text-red-600">
+    {{ . }}
+  </p>
+  {{ end }}
+</div>
+{{end}}
