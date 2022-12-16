@@ -21,26 +21,38 @@
       <div>
         <label for="name" class="block font-medium text-sm text-gray-700">姓名</label>
         <input id="name" type="text"
-               class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+               class="block mt-1 w-full {{ if .Errors.name }} border border-red-600 {{ else }} border-gray-300 {{ end }} focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                name="name" required autofocus autocomplete="name">
+        {{ with .Errors.name }}
+        {{ template "input-error" . }}
+        {{ end }}
       </div>
       <div class="mt-4">
         <label for="email" class="block font-medium text-sm text-gray-700">邮箱</label>
         <input id="email" type="email"
-               class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+               class="block mt-1 w-full {{ if .Errors.email }} border border-red-600 {{ else }} border-gray-300 {{ end }} focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                name="email" required>
+        {{ with .Errors.email }}
+        {{ template "input-error" . }}
+        {{ end }}
       </div>
       <div class="mt-4">
         <label for="password" class="block font-medium text-sm text-gray-700">密码</label>
         <input id="password" type="password"
-               class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+               class="block mt-1 w-full {{ if .Errors.password }} border border-red-600 {{ else }} border-gray-300 {{ end }} focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                name="password" required autocomplete="new-password">
+        {{ with .Errors.password }}
+        {{ template "input-error" . }}
+        {{ end }}
       </div>
       <div class="mt-4">
-        <label for="password_confirmation" class="block font-medium text-sm text-gray-700">确认密码</label>
-        <input id="password_confirmation" type="password"
-               class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-               name="password_confirmation" required autocomplete="new-password">
+        <label for="password_confirm" class="block font-medium text-sm text-gray-700">确认密码</label>
+        <input id="password_confirm" type="password"
+               class="block mt-1 w-full {{ if .Errors.password_confirm }} border border-red-600 {{ else }} border-gray-300 {{ end }} focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+               name="password_confirm" required autocomplete="new-password">
+        {{ with .Errors.password_confirm }}
+        {{ template "input-error" . }}
+        {{ end }}
       </div>
       <div class="flex items-center justify-end mt-4">
         <a class="underline text-sm text-gray-600 hover:text-gray-900" href="/">

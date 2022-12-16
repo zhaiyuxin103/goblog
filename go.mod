@@ -7,6 +7,7 @@ require github.com/gorilla/mux v1.8.0
 require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/stretchr/testify v1.8.1
+	github.com/thedevsaddam/govalidator v1.9.10
 	gorm.io/driver/mysql v1.4.4
 	gorm.io/gorm v1.24.2
 )
