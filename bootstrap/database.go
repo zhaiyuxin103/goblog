@@ -2,8 +2,10 @@ package bootstrap
 
 import (
 	"goblog/app/models/article"
+	"goblog/app/models/user"
 	"goblog/pkg/logger"
 	"goblog/pkg/model"
+	"gorm.io/gorm"
 	"time"
 )
 
@@ -12,10 +14,6 @@ func SetupDB() {
 
 	// 建立数据库连接池
 	db := model.ConnectDB()
-
-	// 为 `Article` 创建表
-	err := db.AutoMigrate(&article.Article{})
-	logger.LogError(err)
 
 	// 命令行打印数据库请求的信息
 	sqlDB, _ := db.DB()
@@ -26,4 +24,17 @@ func SetupDB() {
 	sqlDB.SetMaxIdleConns(25)
 	// 设置每个连接的过期时间
 	sqlDB.SetConnMaxLifetime(5 * time.Minute)
+
+	// 创建和维护数据表结构
+	migration(db)
+}
+
+func migration(db *gorm.DB) {
+
+	// 自动迁移
+	err := db.AutoMigrate(
+		&user.User{},
+		&article.Article{},
+	)
+	logger.LogError(err)
 }
