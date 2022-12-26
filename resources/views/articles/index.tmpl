@@ -3,7 +3,7 @@
 {{end}}
 
 {{define "main"}}
-{{ range $key, $article := . }}
+{{ range $key, $article := .Articles }}
 <div class="h-min mb-4 overflow-hidden rounded-lg bg-white shadow">
   <div class="px-4 py-5 sm:p-6">
     <h2 class="font-normal text-2xl mb-2"><a href="{{ $article.Link }}">{{ $article.Title }}</a></h2>
