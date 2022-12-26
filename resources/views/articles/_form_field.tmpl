@@ -5,7 +5,7 @@
     type="text"
     class="h-10 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full {{if .Errors.title }} border-red-300 {{end}}"
     name="title"
-    value="{{ .Title }}"
+    value="{{ .Article.Title }}"
     required
   >
   {{ with .Errors.title }}
@@ -22,7 +22,7 @@
     name="body"
     cols="30" rows="10"
     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full {{if .Errors.body }} border-red-300 {{end}}"
-  >{{ .Body }}</textarea>
+  >{{ .Article.Body }}</textarea>
   {{ with .Errors.body }}
   <p class="mt-2 text-sm text-red-600">
     {{ . }}
