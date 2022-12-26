@@ -21,20 +21,17 @@
       <div class="mt-4">
         <label for="email" class="block font-medium text-sm text-gray-700">邮箱</label>
         <input id="email" type="email"
-               class="block mt-1 w-full {{ if .Errors.email }} border border-red-600 {{ else }} border-gray-300 {{ end }} focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-               name="email" required>
-        {{ with .Errors.email }}
-        {{ template "input-error" . }}
+               class="block mt-1 w-full {{ if .Error }} border border-red-600 {{ else }} border-gray-300 {{ end }} focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+               name="email" required value="{{ .Email }}">
+        {{ with .Error }}
+        <p class="mt-2 text-sm text-red-600">{{ . }}</p>
         {{ end }}
       </div>
       <div class="mt-4">
         <label for="password" class="block font-medium text-sm text-gray-700">密码</label>
         <input id="password" type="password"
-               class="block mt-1 w-full {{ if .Errors.password }} border border-red-600 {{ else }} border-gray-300 {{ end }} focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-               name="password" required autocomplete="new-password">
-        {{ with .Errors.password }}
-        {{ template "input-error" . }}
-        {{ end }}
+               class="block mt-1 w-full {{ if .Error }} border border-red-600 {{ else }} border-gray-300 {{ end }} focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+               name="password" required autocomplete="new-password" value="{{ .Password }}">
       </div>
       <div class="block mt-4">
         <label for="remember_me" class="flex items-center">
