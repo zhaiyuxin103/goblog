@@ -1,0 +1,16 @@
+{{ define "article-meta" }}
+<p class="mb-0">
+  发布于
+  <a
+    href="{{ .Link }}"
+    class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
+    >{{ .CreatedAtDate }}</a
+  >
+  by
+  <a
+    href="{{ .User.Link }}"
+    class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
+    >{{ .User.Name }}</a
+  >
+</p>
+{{ end }}

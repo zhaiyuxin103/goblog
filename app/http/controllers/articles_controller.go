@@ -7,8 +7,9 @@ import (
 	"goblog/pkg/logger"
 	"goblog/pkg/route"
 	"goblog/pkg/view"
-	"gorm.io/gorm"
 	"net/http"
+
+	"gorm.io/gorm"
 )
 
 // ArticlesController 文章相关页面
@@ -30,7 +31,7 @@ func (*ArticlesController) Index(w http.ResponseWriter, r *http.Request) {
 		// ---  2. 加载模版 ---
 		view.Render(w, view.D{
 			"Articles": articles,
-		}, "articles.index")
+		}, "articles.index", "articles._article_meta")
 	}
 }
 
@@ -98,7 +99,7 @@ func (*ArticlesController) Show(w http.ResponseWriter, r *http.Request) {
 		// ---  4. 读取成功，显示文章 ---
 		view.Render(w, view.D{
 			"Article": article,
-		}, "articles.show")
+		}, "articles.show", "articles._article_meta")
 	}
 }
 

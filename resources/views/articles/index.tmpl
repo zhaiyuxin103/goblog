@@ -1,23 +1,27 @@
-{{define "title"}}
+{{ define "title" }}
 所有文章 -- 我的技术博客
-{{end}}
+{{ end }}
 
-{{define "main"}}
+{{ define "main" }}
 {{ range $key, $article := .Articles }}
 <div class="h-min mb-4 overflow-hidden rounded-lg bg-white shadow">
   <div class="px-4 py-5 sm:p-6">
-    <h2 class="font-normal text-2xl mb-2"><a href="{{ $article.Link }}">{{ $article.Title }}</a></h2>
-    <p class="mb-0">发布于 <a href="#"
-                              class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">2022-12-10</a>
-      by <a href="#"
-            class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">翟宇鑫</a></p>
-    <hr class="my-2">
+    <h2 class="font-normal text-2xl mb-2">
+      <a href="{{ $article.Link }}">{{ $article.Title }}</a>
+    </h2>
+
+    {{ template "article-meta" $article }}
+
+    <hr class="my-2" />
     <p>{{ $article.Body }}</p>
   </div>
 </div>
 {{ end }}
 
-<nav class="flex items-center justify-between rounded-lg bg-white px-4 py-3 sm:px-6" aria-label="Pagination">
+<nav
+  class="flex items-center justify-between rounded-lg bg-white px-4 py-3 sm:px-6"
+  aria-label="Pagination"
+>
   <div class="hidden sm:block">
     <p class="text-sm text-gray-700">
       Showing
@@ -30,10 +34,16 @@
     </p>
   </div>
   <div class="flex flex-1 justify-between sm:justify-end">
-    <a href="#"
-       class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
-    <a href="#"
-       class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+    <a
+      href="#"
+      class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+      >Previous</a
+    >
+    <a
+      href="#"
+      class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+      >Next</a
+    >
   </div>
 </nav>
-{{end}}
+{{ end }}
