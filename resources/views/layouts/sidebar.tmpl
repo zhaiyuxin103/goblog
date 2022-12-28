@@ -1,4 +1,4 @@
-{{define "sidebar"}}
+{{ define "sidebar" }}
 <div class="w-full md:w-1/4 mr-4 mb-4 md:mb-0">
   <div class="overflow-hidden rounded-lg bg-white shadow">
     <div class="px-4 py-5 sm:p-6">
@@ -10,13 +10,26 @@
     <div class="px-4 py-5 sm:p-6">
       <h2 class="font-normal text-2xl mb-2">类别</h2>
       <ol>
-        <li><a href="#"
-               class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">未分类</a>
+        <li>
+          <a
+            href="#"
+            class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
+            >未分类</a
+          >
         </li>
-        <li><a href="#"
-               class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">模板</a></li>
-        <li><a href="#"
-               class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">数据库</a>
+        <li>
+          <a
+            href="#"
+            class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
+            >模板</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
+            >数据库</a
+          >
         </li>
       </ol>
     </div>
@@ -25,15 +38,15 @@
     <div class="px-4 py-5 sm:p-6">
       <h2 class="font-normal text-2xl mb-2">作者</h2>
       <ol>
-        <li><a href="#"
-               class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">翟宇鑫</a>
+        {{ range $key, $user := .Users }}
+        <li>
+          <a
+            href="{{ $user.Link }}"
+            class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
+            >{{ $user.Name }}</a
+          >
         </li>
-        <li><a href="#" class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">Summer</a>
-        </li>
-        <li><a href="#" class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">Aufree</a>
-        </li>
-        <li><a href="#" class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">Monkey</a>
-        </li>
+        {{ end }}
       </ol>
     </div>
   </div>
@@ -41,27 +54,54 @@
     <div class="px-4 py-5 sm:p-6">
       <h2 class="font-normal text-2xl mb-2">链接</h2>
       <ol>
-        <li><a href="#"
-               class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">关于我们</a>
+        <li>
+          <a
+            href="#"
+            class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
+            >关于我们</a
+          >
         </li>
         {{ if .isLogined }}
-          <li><a href='{{ RouteName2URL "articles.create" }}' class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">开始写作</a></li>
-          <li>
-            <form action='{{ RouteName2URL "auth.logout" }}' method="post" class="mt-2" onsubmit="return confirm('您确定要退出吗？')">
-              <button type="submit"
-                      class="inline-flex items-center justify-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 active:bg-red-600 disabled:opacity-25 transition whitespace-nowrap">
-                退出
-              </button>
-            </form>
-          </li>
+        <li>
+          <a
+            href="{{ RouteName2URL "articles.create" }}"
+            class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
+            >开始写作</a
+          >
+        </li>
+        <li>
+          <form
+            action="{{ RouteName2URL "auth.logout" }}"
+            method="post"
+            class="mt-2"
+            onsubmit="return confirm('您确定要退出吗？')"
+          >
+            <button
+              type="submit"
+              class="inline-flex items-center justify-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 active:bg-red-600 disabled:opacity-25 transition whitespace-nowrap"
+            >
+              退出
+            </button>
+          </form>
+        </li>
         {{ else }}
-          <li><a href='{{ RouteName2URL "auth.register" }}'
-                 class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">注册</a></li>
-          <li><a href='{{ RouteName2URL "auth.login" }}'
-                 class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400">登录</a></li>
+        <li>
+          <a
+            href="{{ RouteName2URL "auth.register" }}"
+            class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
+            >注册</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{ RouteName2URL "auth.login" }}"
+            class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
+            >登录</a
+          >
+        </li>
         {{ end }}
       </ol>
     </div>
   </div>
 </div>
-{{end}}
+{{ end }}
