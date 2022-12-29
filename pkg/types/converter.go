@@ -21,3 +21,10 @@ func StringToUint64(str string) uint64 {
 func Uint64ToString(num uint64) string {
 	return strconv.FormatUint(num, 10)
 }
+
+// StringToInt 将字符串转换为 int
+func StringToInt(str string) int {
+	i, err := strconv.Atoi(str)
+	logger.LogError(err)
+	return i
+}
