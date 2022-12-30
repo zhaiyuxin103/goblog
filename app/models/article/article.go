@@ -11,8 +11,9 @@ import (
 type Article struct {
 	models.BaseModel
 
-	UserID uint64 `gorm:"not null;index"`
-	User   user.User
+	UserID     uint64 `gorm:"not null;index"`
+	User       user.User
+	CategoryID uint64 `gorm:"not null;default:1;index"`
 
 	Title string `gorm:"type:varchar(255);not null;" valid:"title"`
 	Body  string `gorm:"type:longtext;not null;" valid:"body"`
