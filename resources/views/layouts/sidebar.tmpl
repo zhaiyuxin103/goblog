@@ -10,25 +10,20 @@
     <div class="px-4 py-5 sm:p-6">
       <h2 class="font-normal text-2xl mb-2">类别</h2>
       <ol>
+        {{ range $key, $category := .Categories }}
         <li>
           <a
-            href="#"
+            href="{{ $category.Link }}"
             class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
-            >未分类</a
+            >{{ $category.Name }}</a
           >
         </li>
+        {{ end }}
         <li>
           <a
-            href="#"
+            href="{{ RouteName2URL "categories.create" }}"
             class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
-            >模板</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
-            >数据库</a
+            >+ 新建分类</a
           >
         </li>
       </ol>
