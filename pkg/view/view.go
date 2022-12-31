@@ -1,6 +1,7 @@
 package view
 
 import (
+	"embed"
 	"goblog/app/models/category"
 	"goblog/app/models/user"
 	"goblog/pkg/auth"
@@ -9,12 +10,14 @@ import (
 	"goblog/pkg/route"
 	"html/template"
 	"io"
-	"path/filepath"
+	"io/fs"
 	"strings"
 )
 
 // D 是 map[string]interface{} 的简写
 type D map[string]interface{}
+
+var TplFS embed.FS
 
 // Render 渲染通用视图
 func Render(w io.Writer, data D, tplFiles ...string) {
@@ -39,14 +42,14 @@ func RenderTemplate(w io.Writer, name string, data D, tplFiles ...string) {
 	// 2. 生成模版文件
 	allFiles := getTemplateFiles(tplFiles...)
 
-	// 5. 解析所有模版文件
+	// 3. 解析所有模版文件
 	tmpl, err := template.New("").
 		Funcs(template.FuncMap{
 			"RouteName2URL": route.Name2URL,
-		}).ParseFiles(allFiles...)
+		}).ParseFS(TplFS, allFiles...)
 	logger.LogError(err)
 
-	// 6. 渲染模版
+	// 4. 渲染模版
 	err = tmpl.ExecuteTemplate(w, name, data)
 	logger.LogError(err)
 }
@@ -61,7 +64,7 @@ func getTemplateFiles(tplFiles ...string) []string {
 	}
 
 	// 3. 所有布局模版文件 Slice
-	layoutFiles, err := filepath.Glob(viewDir + "layouts/*.tmpl")
+	layoutFiles, err := fs.Glob(TplFS, viewDir+"layouts/*.tmpl")
 	logger.LogError(err)
 
 	// 4. 合并所有文件
