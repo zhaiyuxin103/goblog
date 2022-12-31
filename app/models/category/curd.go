@@ -35,3 +35,14 @@ func Get(idstr string) (Category, error) {
 
 	return category, nil
 }
+
+// Update 更新分类
+func (category *Category) Update() (rowsAffected int64, err error) {
+	result := model.DB.Save(&category)
+	if err = result.Error; err != nil {
+		logger.LogError(err)
+		return 0, err
+	}
+
+	return result.RowsAffected, nil
+}

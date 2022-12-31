@@ -78,3 +78,76 @@ func (cc *CategoriesController) Show(w http.ResponseWriter, r *http.Request) {
 		}, "articles.index", "articles._article_meta")
 	}
 }
+
+// Edit
+func (cc *CategoriesController) Edit(w http.ResponseWriter, r *http.Request) {
+
+	// 1. 获取 URL 参数
+	id := route.GetRouteVariable("id", r)
+
+	// 2. 读取对应的分类数据
+	_category, err := category.Get(id)
+
+	// 3. 如果出现错误
+	if err != nil {
+		cc.ResponseForSQLError(w, err)
+	} else {
+
+		// 4. 读取成功，显示编辑分类表单页
+		view.Render(w, view.D{
+			"Category": _category,
+			"Errors":   view.D{},
+		}, "categories.edit")
+	}
+}
+
+// Update
+func (cc *CategoriesController) Update(w http.ResponseWriter, r *http.Request) {
+
+	// 1. 获取 URL 参数
+	id := route.GetRouteVariable("id", r)
+
+	// 2. 读取对应的分类数据
+	_category, err := category.Get(id)
+
+	// 3. 如果出现错误
+	if err != nil {
+		cc.ResponseForSQLError(w, err)
+	} else {
+		// 4. 未出现错误
+
+		// 4.1 表单验证
+		_category.Name = r.PostFormValue("name")
+
+		errors := requests.ValidateCategoryForm(_category)
+
+		if len(errors) == 0 {
+
+			// 4.2 表单验证通过，更新数据
+			rowsAffected, err := _category.Update()
+
+			if err != nil {
+				logger.LogError(err)
+				w.WriteHeader(http.StatusInternalServerError)
+				_, err := fmt.Fprint(w, "500 服务器内部错误")
+				logger.LogError(err)
+			}
+
+			// ✅ 更新成功，跳转到分类详情页
+			if rowsAffected > 0 {
+				showURL := route.Name2URL("categories.show", "id", id)
+				http.Redirect(w, r, showURL, http.StatusFound)
+			} else {
+				_, err := fmt.Fprint(w, "您没有做任何更改！")
+				logger.LogError(err)
+			}
+		} else {
+
+			// 4.3 表单验证不通过，显示理由
+			view.Render(w, view.D{
+				"Category": _category,
+				"Errors":   errors,
+			}, "categories.edit")
+		}
+	}
+}

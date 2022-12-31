@@ -171,7 +171,7 @@ func (ac *ArticlesController) Update(w http.ResponseWriter, r *http.Request) {
 					logger.LogError(err)
 				}
 
-				// ✅更新成功，跳转到文章详情页
+				// ✅ 更新成功，跳转到文章详情页
 				if rowsAffected > 0 {
 					showURL := route.Name2URL("articles.show", "id", id)
 					http.Redirect(w, r, showURL, http.StatusFound)
