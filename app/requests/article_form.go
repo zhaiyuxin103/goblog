@@ -11,12 +11,20 @@ func ValidateArticleForm(data article.Article) map[string][]string {
 
 	// 1. 定制认证规则
 	rules := govalidator.MapData{
-		"title": []string{"required", "min_cn:3", "max_cn:40"},
-		"body":  []string{"required", "min_cn:10"},
+		"user_id":     []string{"required", "exists:users,id"},
+		"category_id": []string{"required", "exists:categories,id"},
+		"title":       []string{"required", "min_cn:3", "max_cn:40"},
+		"body":        []string{"required", "min_cn:10"},
 	}
 
 	// 2. 定制错误消息
 	messages := govalidator.MapData{
+		"user_id": []string{
+			"required:用户 ID 为必填项",
+		},
+		"category_id": []string{
+			"required:分类 ID 为必填项",
+		},
 		"title": []string{
 			"required:标题为必填项",
 			"min_cn:标题长度需大于 3",

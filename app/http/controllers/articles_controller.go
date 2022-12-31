@@ -3,12 +3,14 @@ package controllers
 import (
 	"fmt"
 	"goblog/app/models/article"
+	"goblog/app/models/category"
 	"goblog/app/policies"
 	"goblog/app/requests"
 	"goblog/pkg/auth"
 	"goblog/pkg/config"
 	"goblog/pkg/logger"
 	"goblog/pkg/route"
+	"goblog/pkg/types"
 	"goblog/pkg/view"
 	"net/http"
 )
@@ -46,9 +48,10 @@ func (*ArticlesController) Store(w http.ResponseWriter, r *http.Request) {
 	// 1. 初始化数据
 	currentUser := auth.User()
 	_article := article.Article{
-		UserID: currentUser.ID,
-		Title:  r.PostFormValue("title"),
-		Body:   r.PostFormValue("body"),
+		UserID:     currentUser.ID,
+		CategoryID: types.StringToUint64(r.PostFormValue("category_id")),
+		Title:      r.PostFormValue("title"),
+		Body:       r.PostFormValue("body"),
 	}
 
 	// 2. 表单验证
@@ -144,6 +147,13 @@ func (ac *ArticlesController) Update(w http.ResponseWriter, r *http.Request) {
 		} else {
 
 			// 4.1 表单验证
+			category_id := r.PostFormValue("category_id")
+			_category, err := category.Get(category_id)
+			if err != nil {
+				ac.ResponseForSQLError(w, err)
+			}
+			_article.CategoryID = types.StringToUint64(category_id)
+			_article.Category = _category
 			_article.Title = r.PostFormValue("title")
 			_article.Body = r.PostFormValue("body")
 

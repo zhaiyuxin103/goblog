@@ -2,6 +2,7 @@ package article
 
 import (
 	"goblog/app/models"
+	"goblog/app/models/category"
 	"goblog/app/models/user"
 	"goblog/pkg/route"
 	"strconv"
@@ -11,9 +12,10 @@ import (
 type Article struct {
 	models.BaseModel
 
-	UserID     uint64 `gorm:"not null;index"`
+	UserID     uint64 `gorm:"not null;index" valid:"user_id"`
 	User       user.User
-	CategoryID uint64 `gorm:"not null;default:1;index"`
+	CategoryID uint64 `gorm:"not null;default:1;index" valid:"category_id"`
+	Category   category.Category
 
 	Title string `gorm:"type:varchar(255);not null;" valid:"title"`
 	Body  string `gorm:"type:longtext;not null;" valid:"body"`

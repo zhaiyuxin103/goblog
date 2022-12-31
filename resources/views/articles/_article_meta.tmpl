@@ -12,5 +12,11 @@
     class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
     >{{ .User.Name }}</a
   >
+  分类
+  <a
+    href="{{ .Category.Link }}"
+    class="text-blue-400 hover:text-blue-400 hover:border-b hover:border-blue-400"
+    >{{ .Category.Name }}</a
+  >
 </p>
 {{ end }}
